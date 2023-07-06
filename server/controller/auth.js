@@ -68,3 +68,4 @@ exports.get_user = (req, res) => {
 exports.logout = (req, res) => {
   res.cookie("token", "", { sameSite: "none", secure: true }).json(true);
 };
+

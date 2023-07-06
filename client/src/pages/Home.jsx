@@ -69,7 +69,7 @@ const Home = () => {
           {/* Hero unit */}
           <Box
             sx={{
-              bgcolor: "#f0f0f0",
+              bgcolor: "background.paper",
               pt: 8,
               pb: 6,
             }}

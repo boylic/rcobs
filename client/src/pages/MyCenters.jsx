@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Button, Container } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
@@ -6,15 +6,21 @@ import AccountNav from "./AccountNav";
 import NavBar from "../Components/NavBar";
 import axios from "axios";
 import { api, api_slash } from "../api/api";
+import { UserContext } from "../UserContext";
+
 
 function MyCenters() {
+  const { user } = useContext(UserContext);
   const [places, setPlaces] = useState([]);
+  
+
   useEffect(() => {
     axios.get(api + "/get-user-center").then(({ data }) => {
       setPlaces(data);
     });
   }, []);
-
+  
+ 
   return (
     <div>
       <NavBar />
@@ -45,10 +51,11 @@ function MyCenters() {
                 </div>
               </Link>
             ))}
-          </div>
+           </div>
         </Box>
       </Container>
     </div>
+    
   );
 }
 

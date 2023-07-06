@@ -33,22 +33,7 @@ exports.add_center = (req, res) => {
       .then(() => res.status(201).json({ msg: "center added", center }))
       .catch((err) => console.log(err));
   });
-  // const center = new Center({
-  //   owner: userData.id,
-  //   title: title,
-  //   address: address,
-  //   image: image,
-  //   perks: perks,
-  //   description: description,
-  //   extra_info: extra_info,
-  //   checkIn: checkIn,
-  //   checkOut: checkOut,
-  // });
-
-  // center
-  //   .save()
-  //   .then(() => res.status(201).json({ msg: "center added", center }))
-  //   .catch((err) => console.log(err));
+  
 };
 
 exports.get_center = async (req, res, next) => {
@@ -77,7 +62,7 @@ exports.search_center = (req, res) => {
     } else {
       res
         .status(200)
-        .json({ success: true, message: "hostel found", center: center });
+        .json({ success: true, message: "center found", center: center });
     }
   });
 };

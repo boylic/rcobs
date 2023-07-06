@@ -39,3 +39,18 @@ exports.get_bookings = async (req, res) => {
     res.json(await Booking.find({ user: userData.id }).populate("center"));
   });
 };
+
+//kodi
+exports.get_mycs_bookings = async (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, async (err, userData) => {
+    if (err) throw err;
+    const bookings = await Booking.find({})
+      .populate({path: 'center', match: { owner: userData.id }, 
+      select: '_id title address image description perks', })
+      .populate('user', '_id fname lname email')
+      .exec()
+    const filteredBookings = bookings.filter((booking) => booking.center !== null);
+    res.json(filteredBookings);
+  });
+};

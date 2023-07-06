@@ -75,7 +75,7 @@ function NavBar() {
           </IconButton>
           <Link to={"/"}>
             <Typography variant="h6" noWrap component="div">
-              RECREATION CENTER ONLINE BOOKING SYSTEM
+              RECREATION CENTER BOOKING SYSTEM
             </Typography>
           </Link>
         </Toolbar>

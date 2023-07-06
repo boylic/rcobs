@@ -28,8 +28,7 @@ function App() {
           <Route path="/account/bookings/:id" element={<MyBookings />} />
           <Route path="/account/bookings" element={<MyBookings />} />
 
-          {/* <Route path="/account/bookings" element={<Account />} />
-          <Route path="/account/centers" element={<Account />} /> */}
+         
 
           <Route path="/add-center" element={<AddCenter />} />
         </Routes>

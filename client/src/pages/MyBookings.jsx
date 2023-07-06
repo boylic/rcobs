@@ -2,7 +2,7 @@ import React from "react";
 import NavBar from "../Components/NavBar";
 import AccountNav from "./AccountNav";
 import { Box, Container, Button, Grid } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import axios from "axios";
 import { api, api_slash } from "../api/api";
 import BookingDates from "../Components/BoookingDates";
@@ -17,14 +17,43 @@ import {
 
 function MyBookings() {
   const [bookings, setBookings] = useState([]);
-  useEffect(() => {
+  const [centerBookings, setCenterBookings] = useState([])
+    useEffect(() => {
     axios.get(api + "/bookings").then((response) => {
       setBookings(response.data);
     });
   }, []);
+  useEffect(() => {
+    axios.get(api + "/get-mycs-bookings").then(({ data }) => {
+      console.log(api)
+      setCenterBookings(data);
+      console.log(centerBookings)
+    });
+  }, []);
 
- 
+ const cardStyles = {
+   border:"1px solid #ccc",
+   borderRadius: "8px",
+    padding: "16px",
+    marginBottom: "16px",
+    backgroundColor: "#f9f9f9",
+    display: "flex",
+ };
+
+ const titleStyles = {
+  fontSize: "20px",
+  fontWeight: "bold",
+  display: "flex",
+};
+
+const descriptionStyles = {
+  fontSize: "16px",
+  color: "#666",
+  display: "flex",
+};
+
   return (
+    
     <div>
       <NavBar />
       <Container maxWidth="lg">
@@ -33,12 +62,13 @@ function MyBookings() {
           <Container sx={{ py: 8 }} maxWidth="md">
             {/* End hero unit */}
             <Grid container spacing={4}>
+         
               {bookings?.map((card) => (
                 <Grid item key={card._id} xs={12} sm={6} md={4}>
                   <Link
                     to="/viewpage"
                     style={{ textDecoration: "none" }}
-                    onClick={() => localStorage.setItem("centerId", card?._id)}
+                    onClick={() => localStorage.setItem("centerId", card?.center)}
                   >
                     <Card
                       sx={{
@@ -72,12 +102,31 @@ function MyBookings() {
                   ▬
                 </Grid>
               ))}
+               {centerBookings?.map((booking)=>(
+        
+        <div key ={booking.id} style={cardStyles} >
+          <h2  style={titleStyles}>
+          {booking.name}<br/>
+          {booking.phone}<br/>
+          {booking.checkIn} {booking.checkOut}
+          
+          </h2>
+          <p style={descriptionStyles}>{booking.description}</p>
+        </div>
+        ))}            
+          
             </Grid>
           </Container>
         </Box>
       </Container>
+      
+      
+      
     </div>
+    
+    
   );
+  
 }
 
 export default MyBookings;

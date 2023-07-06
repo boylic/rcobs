@@ -24,7 +24,7 @@ function Search() {
     e.preventDefault();
 
     try {
-      const { data } = await axios.get(api_slash + searchQuery, {
+      const { data } = await axios.get(api_slash + "center/" + searchQuery, {
         searchQuery,
       });
       setSearchResult(data);
@@ -54,7 +54,7 @@ function Search() {
 
         {searchResult && (
           <Container sx={{ py: 8 }} maxWidth="md">
-            <h3>{searchQuery}</h3>
+            <h3>Search results</h3>
             <br />
             <br />
 
@@ -77,8 +77,8 @@ function Search() {
                       <CardMedia
                         component="img"
                         sx={{
-                          // 16:9
-                          pt: "56.25%",
+                        
+                          pt: "0px",
                         }}
                         image={`${api_slash}${card?.image[0]}`}
                         alt="center image"

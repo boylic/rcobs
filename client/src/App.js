@@ -27,7 +27,8 @@ function App() {
           <Route path="/account/centers" element={<MyCenters />} />
           <Route path="/account/bookings/:id" element={<MyBookings />} />
           <Route path="/account/bookings" element={<MyBookings />} />
-
+          
+          
          
 
           <Route path="/add-center" element={<AddCenter />} />

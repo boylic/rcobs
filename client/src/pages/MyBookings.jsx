@@ -13,16 +13,21 @@ import {
   CardMedia,
   CardContent,
   CardActions,
+  TableCell, TableContainer, TableHead, TableBody,  Paper, Table, TableRow
 } from "@mui/material";
+
+
 
 function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [centerBookings, setCenterBookings] = useState([])
-    useEffect(() => {
+    
+  useEffect(() => {
     axios.get(api + "/bookings").then((response) => {
       setBookings(response.data);
     });
   }, []);
+  
   useEffect(() => {
     axios.get(api + "/get-mycs-bookings").then(({ data }) => {
       console.log(api)
@@ -30,34 +35,19 @@ function MyBookings() {
       console.log(centerBookings)
     });
   }, []);
-
- const cardStyles = {
-   border:"1px solid #ccc",
-   borderRadius: "8px",
-    padding: "16px",
-    marginBottom: "16px",
-    backgroundColor: "#f9f9f9",
-    display: "flex",
- };
-
- const titleStyles = {
-  fontSize: "20px",
-  fontWeight: "bold",
-  display: "flex",
-};
-
-const descriptionStyles = {
-  fontSize: "16px",
-  color: "#666",
-  display: "flex",
-};
+  let serial = 0
+ 
+  function addSerial(){
+    serial ++
+    return serial;
+  }
 
   return (
     
     <div>
       <NavBar />
       <Container maxWidth="lg">
-        <Box sx={{ bgcolor: "", height: "100vh", paddingTop: 12 }}>
+        <Box sx={{ bgcolor: "", minHeight: "100vh", paddingTop: 12 }}>
           <AccountNav />
           <Container sx={{ py: 8 }} maxWidth="md">
             {/* End hero unit */}
@@ -102,31 +92,45 @@ const descriptionStyles = {
                   ▬
                 </Grid>
               ))}
-               {centerBookings?.map((booking)=>(
-        
-        <div key ={booking.id} style={cardStyles} >
-          <h2  style={titleStyles}>
-          {booking.name}<br/>
-          {booking.phone}<br/>
-          {booking.checkIn} {booking.checkOut}
-          
-          </h2>
-          <p style={descriptionStyles}>{booking.description}</p>
-        </div>
-        ))}            
-          
-            </Grid>
-          </Container>
+               </Grid> 
+          <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            
+          <TableCell><b>S/N</b></TableCell>
+            <TableCell><b>Title</b></TableCell>
+            <TableCell align="right"><b>Booker</b></TableCell>
+            <TableCell align="right"><b>Phone</b></TableCell>
+            <TableCell align="right"><b>Check in</b></TableCell>
+            <TableCell align="right"><b>Check out</b></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {centerBookings?.map((booking) => (
+            <TableRow
+              key={booking.id}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+              {addSerial()}
+              </TableCell>
+              <TableCell component="th" scope="row">
+              {booking.center.title}
+              </TableCell>
+              <TableCell align="right">{booking.name}</TableCell>
+              <TableCell align="right">{booking.phone}</TableCell>
+              <TableCell align="right">{booking.checkIn}</TableCell>
+              <TableCell align="right">{booking.checkOut}</TableCell>
+            </TableRow> ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    </Container>
         </Box>
       </Container>
-      
-      
-      
     </div>
-    
-    
   );
-  
 }
 
 export default MyBookings;

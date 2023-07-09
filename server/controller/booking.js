@@ -33,14 +33,12 @@ exports.booking = async (req, res) => {
 
 exports.get_bookings = async (req, res) => {
   const { token } = req.cookies;
-
   jwt.verify(token, secret, {}, async (err, userData) => {
     if (err) throw err;
     res.json(await Booking.find({ user: userData.id }).populate("center"));
   });
 };
 
-//kodi
 exports.get_mycs_bookings = async (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, userData) => {
@@ -48,9 +46,31 @@ exports.get_mycs_bookings = async (req, res) => {
     const bookings = await Booking.find({})
       .populate({path: 'center', match: { owner: userData.id }, 
       select: '_id title address image description perks', })
-      .populate('user', '_id fname lname email')
+      .populate({path: 'user', match:{ user: 'user._id'}, select: '_id fname lname email'})
       .exec()
     const filteredBookings = bookings.filter((booking) => booking.center !== null);
-    res.json(filteredBookings);
+    const bookingsData = filteredBookings.map((booking) => ({
+      bookingId: booking._id,
+      center: {
+        centerId: booking.center._id,
+        title: booking.center.title,
+        address: booking.center.address,
+        image: booking.center.image,
+        description: booking.center.description,
+        perks: booking.center.perks,
+      },
+      user: {
+        userId: booking.user._id,
+        fname: booking.user.fname,
+        lname: booking.user.lname,
+        email: booking.user.email,
+      },
+      checkIn: booking.checkIn.toLocaleDateString(),
+      checkOut: booking.checkOut.toLocaleDateString(),
+      phone: booking.phone,
+      name: booking.name
+    }));
+    
+    res.json(bookingsData);
   });
 };

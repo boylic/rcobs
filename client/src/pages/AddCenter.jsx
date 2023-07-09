@@ -82,18 +82,16 @@ const AddCenter = () => {
     formData.append("checkOut", center.checkOut);
 
     if (id) {
-      // update
+      
       await axios.put(api + "/add-center", {
         id,
         formData,
       });
       setRedirect(true);
     } else {
-      // new place
+     
       await axios.post(api + "/add-center", formData, {
-        // headers: {
-        //   auth: "Bearer" + localStorage.getItem("token"),
-        // },
+       
       });
       setRedirect(true);
     }

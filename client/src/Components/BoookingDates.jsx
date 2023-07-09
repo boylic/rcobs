@@ -20,7 +20,7 @@ export default function BookingDates({ booking, className }) {
       {differenceInCalendarDays(
         new Date(booking.checkOut),
         new Date(booking.checkIn)
-      )}{" "}
+      )}{""}
       days:
       <div className="flex gap-1 items-center ml-2">
         <svg

@@ -37,7 +37,7 @@ function Search() {
     setHideSearch(false);
   };
 
-  console.log(searchResult);
+  
 
   return (
     <div>

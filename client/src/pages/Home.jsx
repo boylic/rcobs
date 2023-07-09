@@ -9,6 +9,8 @@ import axios from "axios";
 import { api, api_slash } from "../api/api";
 import Search from "../Components/Search";
 
+
+
 import {
   Box,
   Typography,
@@ -20,6 +22,7 @@ import {
   CardMedia,
   CardContent,
   CardActions,
+  footer,
 } from "@mui/material";
 import { useContext } from "react";
 import { UserContext } from "../UserContext";
@@ -60,6 +63,7 @@ const Home = () => {
   }, []);
 
   return (
+    <div>
     <Box sx={{ display: "flex" }}>
       <NavBar />
       <CssBaseline />
@@ -162,6 +166,21 @@ const Home = () => {
         </main>
       </Main>
     </Box>
+    <footer style={{ backgroundColor: "#f5f5f5", padding: "20px 0" }}>
+      <Container maxWidth="md">
+        <Typography variant="body2" align="center" color="#000">
+          For any inquiries, please contact us at{" "}
+          <Link href="edwinprim@gmail.com">edwinprim@gmail.com</Link>
+        </Typography>
+        <Typography variant="body2" align="center" color="#000">
+          Phone: 0716165956
+        </Typography>
+        <Typography variant="body2" align="center" color="#000">
+          &copy; 2023 team D FYP
+        </Typography>
+      </Container>
+    </footer>
+    </div>
   );
 };
 

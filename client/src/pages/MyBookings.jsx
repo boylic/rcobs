@@ -30,9 +30,9 @@ function MyBookings() {
   
   useEffect(() => {
     axios.get(api + "/get-mycs-bookings").then(({ data }) => {
-      console.log(api)
+   
       setCenterBookings(data);
-      console.log(centerBookings)
+      
     });
   }, []);
   let serial = 0

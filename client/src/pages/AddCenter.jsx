@@ -74,7 +74,7 @@ const AddCenter = () => {
     formData.append("address", center.address);
     for (let i = 0; i < files?.length; i += 1) {
       formData.append("image", files[i]);
-      console.log(files[i]);
+      
     }
     formData.append("description", center.description);
     formData.append("perks", perks);

@@ -30,7 +30,7 @@ function ViewPage() {
     if (center.image) setImg(`${api_slash}${center?.image[0]}`);
   });
 
-  console.log(center)
+ 
 
   return (
     <div>
